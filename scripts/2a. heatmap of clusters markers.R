@@ -1,8 +1,9 @@
 # Heatmap of markers expression in each cluster
 
-# input file: clustered_cells.cxv (SIMPLI output)
+# input data: 
+# - clustered_cells.csv (SIMPLI output)
 
-###### 0. Preparative tasks ######
+###### 0. Load libraries ######
 
 #install.packages("tidyverse")
 library(tidyverse)
@@ -33,12 +34,12 @@ library(writexl)
 library(stringr)
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
 
 # create output folder already done
-# dir.create("plots/clusters", recursive = T)
-# dir.create("plots/clusters/heatmap", recursive = T)
-# dir.create("tables/clusters", recursive = T)
+# dir.create("plots/clusters")
+# dir.create("plots/clusters/heatmap")
+# dir.create("tables/clusters")
 
 ###### 0. Import table ######
 
@@ -46,7 +47,7 @@ setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dr
 clustered_cells <- read.csv("input/clustered_cells.csv")
 
 # pick clustering resolution to analyse
-res <- 'res_1.2_ids'
+res <- 'res_0.9_ids'
 
 ###### 1. Plot heatmap of clusters and markers expression ######
 

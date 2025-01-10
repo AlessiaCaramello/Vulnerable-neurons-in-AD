@@ -1,6 +1,7 @@
-#### Calculate average channel intensity per sample (from SIMPLI - area measurements)
+# Calculate average channel intensity per sample
 
-### Input data: output file "area_measurement.csv" from SIMPLI
+# Input data: 
+# - area_measurement.csv (SIMPLI output)
 
 #### 0. Load libraries ####
 
@@ -26,7 +27,7 @@ library(writexl)
 library(readxl)
 library(openxlsx)
 
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")     
 
 dir.create("plots/pixel_area")
 dir.create("tables/pixel_area")
@@ -67,76 +68,76 @@ write_csv(avg_areal,'tables/pixel_area/avg_perc_area_per_sample.csv')
 
 
 #### 4. Calculate average total marker+ area and save ##### 
-# 
-# # select columns of interest
-# total_area_long <- subset(total_ROI_area, select = c('sample_replicate', 'sample_name', 'group', 'marker', 'area'))
-# 
-# # turn into wide table for calculations
-# total_area_wide <- reshape(total_area_long, 
-#                           idvar = c("sample_name", "sample_replicate"),
-#                           v.names = "area", 
-#                           timevar = "marker", 
-#                           direction = "wide")
-# 
-# # extract markers
-# markers <- unique(total_ROI_area$marker)
-# 
-# 
-# # change colnames
-# colnames(total_area_wide) <- sub("area.","", colnames(total_area_wide))
-# 
-# 
-# # calculate average of column intensity (per sample)
-# avg_tot_area <- aggregate(total_area_wide[, 4:ncol(total_area_wide)], 
-#                      list(total_area_wide$sample_name), mean)
-# 
-# names(avg_tot_area)[names(avg_tot_area) == 'Group.1'] <- 'sample_name'
-# 
-# # save csv 
-# write_csv(avg_tot_area,'tables/pixel_area/avg_total_marker_area.csv')
-# 
-# # calculate average count of cells per sample -> avg of roi sample
-# avg_tot_areal <- aggregate(total_area_long$area, 
-#                                     list(total_area_long$sample_name,
-#                                          total_area_long$marker 
-#                                     ), 
-#                                     mean)
-# # rename columns
-# colnames(avg_tot_areal) <- c("sample_name", "marker", "area")
-# 
-# # add column with group
-# avg_tot_areal <- 
-#   add_column(avg_tot_areal, 
-#              "group" = stringr::str_extract(avg_tot_areal$sample_name, 
-#                                             "[^_]*"), .before = "sample_name")
-# 
-# # save csv 
-# write_csv(avg_tot_areal,'tables/avg_total_marker_area_long.csv')
 
-#### 5. Load file and add variants #####
+# select columns of interest
+total_area_long <- subset(total_ROI_area, select = c('sample_replicate', 'sample_name', 'group', 'marker', 'area'))
 
-# # load input file
-# avg_areal <- read_csv('tables/pixel_area/avg_perc_area_per_sample.csv')
-# 
-# # load file with variants
-# variants <- read_csv('input/TREM2vars_per_sample.csv')
-# 
-# # add columns for hosting variants
-# avg_tot_areal$TREM2var <- "CV"
-# avg_tot_areal$ApoE4pos <- "E3/E3"
-# avg_tot_areal$AD_stage <- "a"
-# avg_tot_areal$TREM2var_ADstage <- "a"
-# avg_tot_areal$ApoE4pos_TREM2 <- "a"
-# avg_tot_areal$ApoE4pos_TREM2var <- "a"
-# 
-# # Add TREM2 variants
-# for (i in 1:nrow(avg_tot_areal)){
-#   avg_tot_areal$TREM2var[i] <- variants$TREM2var[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
-#   avg_tot_areal$AD_stage[i] <- variants$AD_stage[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
-#   avg_tot_areal$ApoE4pos[i] <- variants$ApoE4pos[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
-#   avg_tot_areal$TREM2var_ADstage[i] <- variants$TREM2var_ADstage[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
-#   avg_tot_areal$ApoE4pos_TREM2var[i] <- variants$ApoE4pos_TREM2var[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
-# }
+# turn into wide table for calculations
+total_area_wide <- reshape(total_area_long,
+                          idvar = c("sample_name", "sample_replicate"),
+                          v.names = "area",
+                          timevar = "marker",
+                          direction = "wide")
+
+# extract markers
+markers <- unique(total_ROI_area$marker)
+
+
+# change colnames
+colnames(total_area_wide) <- sub("area.","", colnames(total_area_wide))
+
+
+# calculate average of column intensity (per sample)
+avg_tot_area <- aggregate(total_area_wide[, 4:ncol(total_area_wide)],
+                     list(total_area_wide$sample_name), mean)
+
+names(avg_tot_area)[names(avg_tot_area) == 'Group.1'] <- 'sample_name'
+
+# save csv
+write_csv(avg_tot_area,'tables/pixel_area/avg_total_marker_area.csv')
+
+# calculate average count of cells per sample -> avg of roi sample
+avg_tot_areal <- aggregate(total_area_long$area,
+                                    list(total_area_long$sample_name,
+                                         total_area_long$marker
+                                    ),
+                                    mean)
+# rename columns
+colnames(avg_tot_areal) <- c("sample_name", "marker", "area")
+
+# add column with group
+avg_tot_areal <-
+  add_column(avg_tot_areal,
+             "group" = stringr::str_extract(avg_tot_areal$sample_name,
+                                            "[^_]*"), .before = "sample_name")
+
+# save csv
+write_csv(avg_tot_areal,'tables/avg_total_marker_area_long.csv')
+
+#### 5. Add variants #####
+
+# load input file
+#avg_areal <- read_csv('tables/pixel_area/avg_perc_area_per_sample.csv')
+
+# load file with variants
+variants <- read_csv('input/TREM2vars_per_sample.csv')
+
+# add columns for hosting variants
+avg_tot_areal$TREM2var <- "CV"
+avg_tot_areal$ApoE4pos <- "E3/E3"
+avg_tot_areal$AD_stage <- "a"
+avg_tot_areal$TREM2var_ADstage <- "a"
+avg_tot_areal$ApoE4pos_TREM2 <- "a"
+avg_tot_areal$ApoE4pos_TREM2var <- "a"
+
+# Add TREM2 variants
+for (i in 1:nrow(avg_tot_areal)){
+  avg_tot_areal$TREM2var[i] <- variants$TREM2var[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
+  avg_tot_areal$AD_stage[i] <- variants$AD_stage[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
+  avg_tot_areal$ApoE4pos[i] <- variants$ApoE4pos[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
+  avg_tot_areal$TREM2var_ADstage[i] <- variants$TREM2var_ADstage[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
+  avg_tot_areal$ApoE4pos_TREM2var[i] <- variants$ApoE4pos_TREM2var[grep(avg_tot_areal$sample_name[i], variants$sample_name)]
+}
 
 #### 6. Plot all markers ####
 
@@ -162,7 +163,7 @@ plot <- ggbarplot(
   title = "Pixel area per marker",
   add = c("mean_sd", "jitter"), 
   color = "group", 
-  palette = c("#FA8072", "#20B2AA"), 
+  palette = c("#D02D27", "#D39898", "#314B93", "#8297C4"), 
   position = position_dodge(0.8)
 ) + 
   scale_y_continuous(labels = scales::comma,  breaks = scales::extended_breaks(n = 10)) + 
@@ -181,7 +182,7 @@ dev.off()
 #### 7. Plot selected markers (OPEN -->) ####
 
 # input markers to plot
-selected_markers = "Ab4G8|MOAB2|H31L21"
+selected_markers = "Ab|pTau"
 
 
 #### 8. Filter table ####
@@ -192,12 +193,12 @@ avg_areal_sel <- avg_areal %>%
 
 #### 9. Define comparisons and folders (OPEN -->) #####
 
-# Create table with comparisons for for loop 
+# Create table with conditions for for loop 
 conditions <- data.frame(matrix(ncol = 3, nrow = 3))
 conditions <- data.frame(
   cond_name = c(1, 2, 3),
-  order = I(list(c("2mFAD", "4mFAD"), c(" ", " ", " ", " "), c(" ", " ", " ", " ", " "))),
-  group_column = c("group", " ", " ")
+  order = I(list(c("CtrlCV", "AlzCV"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzTREM2"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzR62H", "Alz472H"))),
+  group_column = c("group", "group", "TREM2var")
 )
 
 # define column with value to test
@@ -640,10 +641,14 @@ for (cond in 1:nrow(conditions)) {
   # set as dataframe 
   dat_plot <- as.data.frame(dat_plot)
 
-  
   groups_label <- c(
-    "2mFAD" = "#D02D27",
-    "4mFAD" = "#314B93")
+    "AlzCV" = "#D02D27",
+    "AlzTREM2" = "#D39898",
+    "AlzR47H" = "#D39898",
+    "AlzR62H" = "#D8C5C5",
+    "CtrlCV" = "#314B93",
+    "CtrlTREM2" = "#8297C4"
+  )
   
   # # change y.positions (only if necessary)
   # stat_temp2 <- data.frame(matrix(ncol = ncol(stat.test.signif)))

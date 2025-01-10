@@ -2,10 +2,9 @@
 
 # input data: 
 #  - clustered_cells.csv (SIMPLI output)
-#  - sample_rotation.csv (degrees of rotation for each image)
-
+#  - sample_rotation.csv (metadata - degrees of rotation for each image)
   
-##### 0. Install packages, set wd, make output folders #####
+##### 0. Load libraries #####
 
 #install.packages("tidyverse")
 library(tidyverse)
@@ -29,15 +28,16 @@ library(writexl)
 library(readxl)
 #install.packages("openxlsx") 
 library(openxlsx)
+
 ##### 1. Set working directory and import files #####
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
 
+# load input files
 clustered_cells <- read.csv("input/clustered_cells.csv")
 
 sample_names <- unique(clustered_cells$Metadata_sample_name)
-
 
 ##### 2. Change X and Y for rotating images - LONG #####
 
@@ -115,12 +115,12 @@ for (i in 1:nrow(clustered_cells)){
 }
 
 # remove columns of old X and Y
-clustered_cells_new <- subset(clustered_cells, select = -c(X, Y, rotation))
+clustered_cells <- subset(clustered_cells, select = -c(X, Y, rotation))
 
 # rename X and Y columns
-colnames(clustered_cells_new)[which(names(clustered_cells_new) == "new_X" )] <- "X"
-colnames(clustered_cells_new)[which(names(clustered_cells_new) == "new_Y" )] <- "Y"
+colnames(clustered_cells)[which(names(clustered_cells) == "new_X" )] <- "X"
+colnames(clustered_cells)[which(names(clustered_cells) == "new_Y" )] <- "Y"
 
 # save new table
-write.csv(clustered_cells_new, "input/clustered_cells_new.csv")
+write.csv(clustered_cells, "input/clustered_cells.csv")
 

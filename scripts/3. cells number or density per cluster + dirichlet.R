@@ -1,9 +1,10 @@
-# Extracting clusters infos - number of cells per cluster
+# Calculating number and density of cells per cluster
 
-# input file: clustered_cells.csv (SIMPLI output)
+# input data: 
+# - clustered_cells.csv (SIMPLI output)
 
 ####   CELL NUMBER PER CLUSTER ####
-###### 0. Preparative tasks ######
+###### 0a. Load libraries ######
 
 #install.packages("tidyverse")
 library(tidyverse)
@@ -34,18 +35,16 @@ library(writexl)
 library(stringr)
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
 
 # create output folder
-# dir.create("plots/clusters", recursive = T)
 # dir.create("plots/clusters/dirichlet")
-# dir.create("tables/clusters", recursive = T)
 # dir.create("tables/clusters/dirichlet")
 
-###### 0. Import table ######
+###### 0b. Import table ######
 
 # import file
-clustered_cells <- read.csv("input/clustered_cells_original.csv")
+clustered_cells <- read.csv("input/clustered_cells.csv")
 
 # pick which clustering resolution to analyse
 res <- 'res_0.9_ids'
@@ -158,7 +157,7 @@ for (i in unique(counted$sample_name)){
 
 }
 
-####   DIRICHLET WITH CELL NUMBER PER CLUSTER #####
+####   DIRICHLET OF CELL NUMBER PER CLUSTER #####
 ###### 2a. Adapt tables to Dirichlet analysis ######
 
 # remove sum col, we don't need it anymore
@@ -194,9 +193,9 @@ write_csv(countedl, paste0("tables/clusters/cells_per_cluster_long.csv"))
 # 2nd slot = group 2 name
 # 3rd slot = column with into of group names
 
-comp1 <- c('NP0122013_1', 'NP0122013_2', 'sample_name') 
-comp2 <- c('NP0122013_1', 'NP0122013_3', 'sample_name') 
-comp3 <- c('NP0122013_2', 'NP0122013_3', 'sample_name') 
+comp1 <- c('CtrlCV', 'AlzCV', 'group') 
+comp2 <- c('CtrlCV', 'AlzTREM2', 'group') 
+comp3 <- c('AlzCV', 'AlzTREM2', 'group') 
 
 comp_all <- list(comp1, comp2, comp3)
 
@@ -207,7 +206,7 @@ path_tables <- "tables/clusters/dirichlet/"
 dir.create(path_plots)
 dir.create(path_tables)
 
-subfolder <- "slides_comparisons_cell_number"
+subfolder <- "cell_number"
 
 dir.create(paste0(path_plots, subfolder))
 dir.create(paste0(path_tables, subfolder)) 
@@ -347,53 +346,7 @@ for (i in 1:length(comp_all)){
 }
 
 ####   CELL DENSITY PER CLUSTER ####
-###### 0. Preparative tasks ######
-
-#install.packages("tidyverse")
-library(tidyverse)
-library(reshape)
-library(data.table)
-library(dplyr)
-library(stringr)
-library(tibble)
-library(tidyr)
-#install.packages("progress")
-library(progress)
-library(ggplot2)
-library(ggsignif)
-#install.packages("ggpubr")
-library(ggpubr)
-library(rstatix)
-library(plyr)
-#install.packages("DirichletReg")
-library(DirichletReg)
-library(reshape2)
-library(pheatmap)
-#install.packages("writexl")
-library(writexl)
-#install.packages("readxl")
-library(readxl)
-library(readr)
-
-# set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
-
-# create output folder
-# dir.create("plots/clusters/")
-# dir.create("plots/clusters/density")
-# dir.create("tables/clusters")
-# dir.create("tables/clusters/density")
-
 ###### 3a. Calculate total area and cell density #####
-
-# import file
-clustered_cells <- read.csv("input/clustered_cells.csv")
-
-# pick which clustering resolution to analyse
-res <- 'res_1.2_ids'
-
-# remove clusters negative for all and positive for all
-clustered_cells <- clustered_cells[!clustered_cells[,res] %in% c(1,16,23),] 
 
 # find max X and Y for each ROI
 groups <- unique(clustered_cells$Metadata_sample_name)
@@ -455,9 +408,9 @@ write_csv(countedw, paste0("tables/clusters/cell_density_per_cluster_wide.csv"))
 # 2nd slot = group 2 name
 # 3rd slot = column with into of group names
 
-comp1 <- c('NP0122013_1', 'NP0122013_2', 'sample_name') 
-comp2 <- c('NP0122013_1', 'NP0122013_3', 'sample_name') 
-comp3 <- c('NP0122013_2', 'NP0122013_3', 'sample_name') 
+comp1 <- c('CtrlCV', 'AlzCV', 'group') 
+comp2 <- c('CtrlCV', 'AlzTREM2', 'group') 
+comp3 <- c('AlzCV', 'AlzTREM2', 'group') 
 
 comp_all <- list(comp1, comp2, comp3)
 
@@ -468,7 +421,7 @@ path_tables <- "tables/clusters/dirichlet/"
 dir.create(path_plots)
 dir.create(path_tables)
 
-subfolder <- "slides_comparisons_cell_density"
+subfolder <- "cell_density"
 
 dir.create(paste0(path_plots, subfolder))
 dir.create(paste0(path_tables, subfolder)) 
@@ -617,19 +570,13 @@ for (i in 1:length(comp_all)){
 # load input file
 countedw <- read_csv("tables/clusters/cells_per_cluster_wide.csv")
 
-# define comparisons
-# all slots apart from last = groups names
-# last slot = column with info of group names
-
-comp1 <- c('NP0122013_1', 'NP0122013_2', 'NP0122013_3', 'sample_name') 
-# comp2 <- c('..', '..', '..', '..') 
-# comp3 <- c('..', '..', '..', '..') 
-
-comp_all <- list(
-  comp1
-  #comp2, 
-  #comp3
-  )
+# Create table with conditions for for loop 
+conditions <- data.frame(matrix(ncol = 3, nrow = 3))
+conditions <- data.frame(
+  cond_name = c(1, 2, 3),
+  order = I(list(c("CtrlCV", "AlzCV"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzTREM2"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzR62H", "Alz472H"))),
+  group_column = c("group", "group", "TREM2var")
+)
 
 # define paths and create folders
 path_plots <- "plots/clusters/dirichlet/"
@@ -638,7 +585,7 @@ path_tables <- "tables/clusters/dirichlet/"
 dir.create(path_plots)
 dir.create(path_tables)
 
-subfolder <- "slides_comparisons_cell_number"
+subfolder <- "cell_number"
 
 dir.create(paste0(path_plots, subfolder))
 dir.create(paste0(path_tables, subfolder)) 
@@ -648,16 +595,15 @@ path_tables <- paste0("tables/clusters/dirichlet/", subfolder, "/")
 
 # Start for loop 
 
-for (c in 1:length(comp_all)){
-  #c=1
+for (cond in 1:nrow(conditions)){
+  #cond=1
   
   ##### Prep tasks #####
   
   # define sample name, column_oi and folder name
-  comp <- comp_all[[c]]
-  column_oi <- comp[length(comp)]
-  x <- comp[1:(length(comp)-1)]
-  sample_folder <- paste(x, collapse = "_")
+  column_oi <- conditions$group_column[cond] 
+  x <- conditions$order[cond]
+  sample_folder <- paste(x, collapse = "_") 
   
   # adjust dataframe
   dat <- as.data.frame(countedw)
@@ -932,18 +878,12 @@ for (c in 1:length(comp_all)){
 # load input file
 countedw <- read_csv("tables/clusters/cell_density_per_cluster_wide.csv")
 
-# define comparisons
-# all slots apart from last = groups names
-# last slot = column with info of group names
-
-comp1 <- c('NP0122013_1', 'NP0122013_2', 'NP0122013_3', 'sample_name') 
-# comp2 <- c('..', '..', '..', '..') 
-# comp3 <- c('..', '..', '..', '..') 
-
-comp_all <- list(
-  comp1
-  #comp2, 
-  #comp3
+# Create table with conditions for for loop 
+conditions <- data.frame(matrix(ncol = 3, nrow = 3))
+conditions <- data.frame(
+  cond_name = c(1, 2, 3),
+  order = I(list(c("CtrlCV", "AlzCV"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzTREM2"), c("CtrlCV", "CtrlTREM2", "AlzCV", "AlzR62H", "Alz472H"))),
+  group_column = c("group", "group", "TREM2var")
 )
 
 # define paths and create folders
@@ -953,7 +893,7 @@ path_tables <- "tables/clusters/dirichlet/"
 dir.create(path_plots)
 dir.create(path_tables)
 
-subfolder <- "slides_comparisons_cell_density"
+subfolder <- "cell_density"
 
 dir.create(paste0(path_plots, subfolder))
 dir.create(paste0(path_tables, subfolder)) 
@@ -963,16 +903,15 @@ path_tables <- paste0("tables/clusters/dirichlet/", subfolder, "/")
 
 # Start for loop 
 
-for (c in 1:length(comp_all)){
-  #c=1
+for (cond in 1:nrow(conditions)){
+  #cond=1
   
   ##### Prep tasks #####
   
   # define sample name, column_oi and folder name
-  comp <- comp_all[[c]]
-  column_oi <- comp[length(comp)]
-  x <- comp[1:(length(comp)-1)]
-  sample_folder <- paste(x, collapse = "_")
+  column_oi <- conditions$group_column[cond] 
+  x <- conditions$order[cond]
+  sample_folder <- paste(x, collapse = "_") 
   
   # adjust dataframe
   dat <- as.data.frame(countedw)
@@ -1240,8 +1179,4 @@ for (c in 1:length(comp_all)){
   dev.off()
   
 }
-
-
-
-clustered_cells
 

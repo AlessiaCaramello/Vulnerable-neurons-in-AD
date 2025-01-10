@@ -1,7 +1,10 @@
-# UMAP plotting for samples, markers and clusters
+# UMAP plotting for samples, markers and clusters 
+# adapted from SIMPLI plotting functions
+
+# Input data:
+# - clustered_cells.csv (SIMPLI output)
 
 ####### SETUP from SIMPLI #######
-#rm(list = ls())
 library(data.table)
 library(uwot)
 library(ggplot2)
@@ -15,10 +18,10 @@ setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dr
 
 #define variables
 cell_file_name <- "input/clustered_cells.csv"                        # $clustered_cell_file \\                                                                                         
-sample_metadata_file_name <- "input/sample_metadata_TREM2.csv"       # $sample_metadata_file \\
-cell_population <- "all_cells"                                       # $cell_type of clustered_cell \\                                                                                        
+#sample_metadata_file_name <- "input/sample_metadata_TREM2.csv"       # $sample_metadata_file \\
+#cell_population <- "all_cells"                                       # $cell_type of clustered_cell \\                                                                                        
 markers <- strsplit("Intensity_MeanIntensity_CCK@Intensity_MeanIntensity_GAD1@Intensity_MeanIntensity_CALB1@Intensity_MeanIntensity_VIP@Intensity_MeanIntensity_PVALB@Intensity_MeanIntensity_SST@Intensity_MeanIntensity_NPY@Intensity_MeanIntensity_ADARB1@Intensity_MeanIntensity_LHX6@Intensity_MeanIntensity_Calretinin@Intensity_MeanIntensity_CUX2@Intensity_MeanIntensity_LMO3@Intensity_MeanIntensity_PCP4@Intensity_MeanIntensity_GPC5@Intensity_MeanIntensity_FOXP2@Intensity_MeanIntensity_RORB@Intensity_MeanIntensity_MAP2@Intensity_MeanIntensity_MAP2all@Intensity_MeanIntensity_NeuN@Intensity_MeanIntensity_OLIG2@Intensity_MeanIntensity_GFAP@Intensity_MeanIntensity_S100B@Intensity_MeanIntensity_Iba1@Intensity_MeanIntensity_CD68@Intensity_MeanIntensity_Synapto@Intensity_MeanIntensity_NTNG2@Intensity_MeanIntensity_pTau@Intensity_MeanIntensity_Ab@Intensity_MeanIntensity_APP", "@")[[1]]     # $markers \\                                                        
-resolutions <- as.numeric("1.2")                                # $resolutions \\                                                   
+resolutions <- as.numeric("0.9")                                # $resolutions \\                                                   
 high_color <- "#0000FF"                                         # $params.high_color \\                                                       
 mid_color <- "#FFFFFF"                                          # $params.mid_color \\                                                           
 low_color <- "#DCDCDC"                                          # $params.low_color \\                                                        
@@ -30,19 +33,13 @@ resolutions <- paste0("res_", resolutions, "_ids")
 
 ######## Cell data #######
 Cells <- fread(cell_file_name)
-Samples <- fread(sample_metadata_file_name)
-Samples[is.na(comparison), comparison := "NA" ]
-suppressWarnings(Cells[, color := NULL])
-suppressWarnings(Cells[, comparison := NULL])
+# Samples <- fread(sample_metadata_file_name)
+# Samples[is.na(comparison), comparison := "NA" ]
+# suppressWarnings(Cells[, color := NULL])
+# suppressWarnings(Cells[, comparison := NULL])
 
-
-Cells <- merge(Cells, Samples, by.x = "Metadata_sample_name", by.y = "sample_name")
-Cells <- Cells[comparison != "NA" & cell_type == cell_population]
-
-if(nrow(Cells) == 0) {
-  cat(paste0("No samples with comparison != NA, please check the  ", sample_metadata_file_name, " file\n."))
-  quit(save = "no", status = 1)
-}
+# Cells <- merge(Cells, Samples, by.x = "Metadata_sample_name", by.y = "sample_name")
+# Cells <- Cells[comparison != "NA" & cell_type == cell_population]
 
 ######## Heatmaps #######
 # heatmaps <- lapply(resolutions, function(res){
@@ -77,7 +74,7 @@ names(UMAPS) <- resolutions
 
 # save
 #qsave(UMAPS, "tables/clusters/UMAPs/UMAPs.qs")
-saveRDS(UMAPS, "tables/clusters/UMAPs/UMAPs.rds")
+saveRDS(UMAPS, "tables/clusters/UMAPs/UMAPs_new.rds")
 
 ###################### UMAP Plots by Cluster ##########################
 
@@ -167,8 +164,8 @@ umap_marker_plots <- lapply(resolutions, function(res){
 names(umap_marker_plots) <- resolutions
 
 
-for (i in 1:length(names(umap_marker_plots$res_1.2_ids))){
-  plot_name <- gsub("Intensity_MeanIntensity_", "", names(umap_marker_plots$res_1.2_ids)[i])
+for (i in 1:length(names(umap_marker_plots[[resolutions]]))){
+  plot_name <- gsub("Intensity_MeanIntensity_", "", names(umap_marker_plots[[resolutions]])[i])
   png(file=paste0("plots/clusters/UMAPs/UMAP_", plot_name, "_", resolutions, ".png"),
       width=2900, height=2600, res=400)
   print(umap_marker_plots[[resolutions]][i])
