@@ -17,9 +17,7 @@ We used imaging mass cytometry (IMC) to identify the first neurons to be lost in
 
 1. Prepare "R code" folder.
    This should include:
-   - "input" -> all necessary input files:
-                - SIMPLI output files: area_measurements.csv, clustered_cells.csv,
-                - metadata: clusters_labels.csv,
+   - "input" -> all necessary input files: SIMPLI output files (area_measurements.csv, clustered_cells.csv), metadata (clusters_labels.csv, sample_rotation.csv)
    - "R scripts" -> scripts in this repository
    - "plots" -> [empty] output for plots
    - "tables" -> [empty] output for tables
