@@ -19,9 +19,9 @@ We used imaging mass cytometry (IMC) to identify the first neurons to be selecti
    This should should include:
    - "input" -> all necessary input files: SIMPLI output files (area_measurements.csv, clustered_cells.csv, all_cells-clusters.csv - not provided) and metadata (clusters_labels.csv, sample_rotation.csv, vars_per_sample.csv, markers_threshold.csv - provided)
    - "R scripts" -> all scripts available in this repository
+   - "ImageJ_macro" -> containing the "ImageJ macro/Plaques mask and rings.ijm" script and the "mask_channels" folder (which should contain all amyloid-b ROIs - not provided)
    - "plots" -> [empty] output for plots
    - "tables" -> [empty] output for tables
-   - "ImageJ_macro" -> containing the "ImageJ macro/Plaques mask and rings.ijm" script and the "mask_channels" folder (which should contain all amyloid-b ROIs - not provided)
 
 
 2. **Adapt metadata**: 
