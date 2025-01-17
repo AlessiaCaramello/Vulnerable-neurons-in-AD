@@ -1,0 +1,37 @@
+cluster,label,full_label,cell_type,marker,cell_type
+cluster_0,OLIG2,cluster_0 - OLIG2,oligos,ADARB1,inh_neurons
+cluster_1,"MAP2, MAP2all","cluster_1 - MAP2, MAP2all",pan_neurons,APP,AD_pathology
+cluster_2,"GFAP, S100B","cluster_2 - GFAP, S100B",astrocytes,Ab,AD_pathology
+cluster_3,S100B,cluster_3 - S100B,astrocytes,CALB1,inh_neurons
+cluster_4,"NeuN, FOXP2, GPC5, PCP4, VIP","cluster_4 - NeuN, FOXP2, GPC5, PCP4, VIP",ex_neurons,CCK,inh_neurons
+cluster_5,"RORB, MAP2","cluster_5 - RORB, MAP2",ex_neurons,CD68,microglia
+cluster_6,Synapto,cluster_6 - Synapto,pan_neurons,CUX2,ex_neurons
+cluster_7,NeuN,cluster_7 - NeuN,pan_neurons,Calretinin,inh_neurons
+cluster_8,"RORB, FOXP2","cluster_8 - RORB, FOXP2",ex_neurons,FOXP2,ex_neurons
+cluster_9,"GAD1, ADARB1","cluster_9 - GAD1, ADARB1",inh_neurons,GAD1,inh_neurons
+cluster_10,"RORB, GPC5","cluster_10 - RORB, GPC5",ex_neurons,GFAP,astrocytes
+cluster_11,RORB,cluster_11 - RORB,ex_neurons,GPC5,ex_neurons
+cluster_12,Iba1,cluster_12 - Iba1,microglia,Iba1,microglia
+cluster_13,CUX2,cluster_13 - CUX2,ex_neurons,LHX6,inh_neurons
+cluster_14,SST,cluster_14 - SST,inh_neurons,LMO3,ex_neurons
+cluster_15,"CD68, GAD1","cluster_15 - CD68, GAD1",microglia,MAP2,pan_neurons
+cluster_16,FOXP2,cluster_16 - FOXP2,ex_neurons,MAP2all,pan_neurons
+cluster_17,"MAP2, MAP2all","cluster_17 - MAP2, MAP2all",pan_neurons,NPY,inh_neurons
+cluster_18,GPC5,cluster_18 - GPC5,ex_neurons,NTNG2,synapses
+cluster_19,Calretinin,cluster_19 - Calretinin,inh_neurons,NeuN,pan_neurons
+cluster_20,NTNG2,cluster_20 - NTNG2,pan_neurons,OLIG2,oligos
+cluster_21,"LHX6, ADARB1","cluster_21 - LHX6, ADARB1",inh_neurons,PCP4,ex_neurons
+cluster_22,CALB1,cluster_22 - CALB1,inh_neurons,PVALB,inh_neurons
+cluster_23,PCP4,cluster_23 - PCP4,ex_neurons,RORB,ex_neurons
+cluster_24,"Iba1, CD68","cluster_24 - Iba1, CD68",microglia,S100B,astrocytes
+cluster_25,VIP,cluster_25 - VIP,inh_neurons,SST,inh_neurons
+cluster_26,NPY,cluster_26 - NPY,inh_neurons,Synapto,synapses
+cluster_27,LMO3,cluster_27 - LMO3,ex_neurons,VIP,inh_neurons
+cluster_28,ADARB1 ,cluster_28 - ADARB1 ,inh_neurons,pTau,AD_pathology
+cluster_29,"PVALB, CCK","cluster_29 - PVALB, CCK",inh_neurons,,
+cluster_30,"OLIG2, S100B","cluster_30 - OLIG2, S100B",oligos,,
+cluster_31,"GAD1, MAP2","cluster_31 - GAD1, MAP2",inh_neurons,,
+cluster_32,"GAD1, FOXP2","cluster_32 - GAD1, FOXP2",inh_neurons,,
+cluster_33,GAD1,cluster_33 - GAD1,inh_neurons,,
+cluster_34,"GFAP, Iba1","cluster_34 - GFAP, Iba1",astrocytes,,
+cluster_35,S100B,cluster_35 - S100B,astrocytes,,
