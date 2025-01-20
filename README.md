@@ -58,7 +58,10 @@ We then performed pathway analysis on vulnerable neuronal populations, using an 
 ### Analysis
 
 Scripts 0 to 7 --> IMC data analysis
+
 Scripts 8 to 12 --> IMC-RNAseq clusters matching and pathway analysis
+
+///
 
 SCRIPT: **0a. flipping XY coord of 90 180 270 degrees.R**
 
@@ -67,6 +70,7 @@ Input data:
    - clustered_cells.csv (SIMPLI output)
    - sample_rotation.csv (metadata - degrees of rotation for each image)
 
+///
 
 SCRIPT: **0b. pixel coordinates extraction from masks.R**
 
@@ -74,6 +78,7 @@ Type of analysis: Extract pixel coordinates from PNG files generated using the I
 Input data: 
    - PNG files of plaques and rings masks from ImageJ macro
 
+///
 
 SCRIPT: **1. channel pixel area.R**
 
@@ -83,6 +88,7 @@ Input data:
    - area_measurement.csv (SIMPLI output)
    - vars_per_sample.csv (metadata)
 
+///
 
 SCRIPT: **2a. heatmap of clusters markers**
 
@@ -91,6 +97,7 @@ Type of analysis: Generate heatmap of markers expression in each cluster
 Input data: 
    - clustered_cells.csv (SIMPLI output)
 
+///
 
 SCRIPT: **2b. UMAPs of clusters.R**
 
@@ -99,6 +106,7 @@ Type of analysis: Generate UMAP plots highlighting samples, markers and clusters
 Input data: 
    - clustered_cells.csv (SIMPLI output)
 
+///
 
 SCRIPT: **3. cells number or density per cluster.R**
 
@@ -108,6 +116,7 @@ Input data:
    - clustered_cells.csv (SIMPLI output)
    - clusters_labels.csv (metadata)
 
+///
 
 SCRIPT: **4. clusters distribution density.R**
 
@@ -118,6 +127,7 @@ Input data:
    - vars_per_sample.csv (metadata)
    - clusters_labels.csv (metadata)
 
+///
 
 SCRIPT: **5. clustered cells positive for markers of interest.R**
 
@@ -129,6 +139,7 @@ Input data:
    - vars_per_sample.csv (metadata)
    - clusters_labels.csv (metadata)
 
+///
 
 SCRIPT: **6. clusters spatial interactions.R**
 
@@ -139,6 +150,7 @@ Input data:
    - UMAPs.rds (generated in 2b. UMAPs of clusters)
    - clusters_labels.csv (metadata)
 
+///
 
 SCRIPT: **7. analysis of cells in plaques and rings.R**
 
@@ -148,3 +160,27 @@ Input data:
    - clustered_cells.csv (SIMPLI output)
    - csv. files of plaques and rings masks (generated in 0b. pixel coordinates extraction from masks.R)
    - clusters_labels.csv (metadata)
+
+///
+
+SCRIPT: **8. calculate_clusters_size_quartiles.R**
+
+Type of analysis: Calculate IMC to RNAseq clusters matching score based on size (cell number)
+
+Input data: 
+   - RNAseq_sample_metadata.tsv (metadata)
+   - RNAseq_cluster_size.tsv (snRNAseq data)
+   - cells_per_cluster_wide.csv (generated in 3. cells number or density per cluster)
+
+///
+
+SCRIPT: **9. Matching of IMC clusters to snRNASeq clusters.R**
+
+Type of analysis:Calculate final match of IMC clusters to snRNASeq clusters based on markers expression and clusters size
+
+Input data: 
+   - IMC_markers_expression_in_RNAseq.csv (snRNAseq data)
+   - clustered_cells.csv (SIMPLI output files)
+   - clusters_labels.csv (metadata)
+   - clusters_quartile_matching_score.csv (generated in 8.calculate_clusters_size_quartiles)
+
