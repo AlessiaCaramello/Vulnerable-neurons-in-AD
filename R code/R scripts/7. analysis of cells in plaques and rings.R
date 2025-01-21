@@ -27,7 +27,7 @@ library(dplyr)
 library(writexl)
 
 # set working directory
-setwd("~/Dropbox (UK Dementia Research Institute)/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 # read in clustered_cells
 clustered_cells <- read_csv("input/clustered_cells.csv")
