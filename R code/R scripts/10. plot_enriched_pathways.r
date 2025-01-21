@@ -20,7 +20,7 @@ library(tidyr)
 library(plyr)
 library(dplyr)
 
-setwd("~/Dropbox (UK Dementia Research Institute)/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 #### 1. define folder to analyse and comparisons >> OPEN << ####
 
