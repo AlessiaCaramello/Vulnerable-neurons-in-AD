@@ -1,4 +1,4 @@
-# Filter and plot enriched pathways 
+# Filter and plot pathways enriched in each cluster (regressed for variables, comparing clusters with each others)
 
 # input data
 # - .tsv files with enriched pathways
