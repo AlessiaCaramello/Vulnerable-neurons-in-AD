@@ -1,4 +1,4 @@
-### Purpose of repository
+### 1. Purpose of repository
 
 This repository contains all R scripts used for performing data analysis for our project on neuronal vulnerability in Alzheimer's Disease (AD). A preprint of our study is available:
 
@@ -6,7 +6,7 @@ _Intra-cellular accumulation of amyloid is a marker of selective neuronal vulner
 Alessia Caramello, Nurun Fancy, Clotilde Tournerie, Maxine Eklund, Vicky Chau, Emily Adair, Marianna Papageorgopoulou, Johanna Jackson, John Hardy, Paul M. Matthews
 _medRxiv_ 2023.11.23.23298911; doi: https://doi.org/10.1101/2023.11.23.23298911
 
-### Overview of the study
+### 2. Overview of the study
 
 We used imaging mass cytometry (IMC) to identify the first neurons to be selectively lost in the human middle temporal gyrus in AD (vulnerable neurons). IMC images were processed using the software [SIMPLI](https://github.com/ciccalab/SIMPLI) 
 (the version used is available in my GitHub page). Raw and processed images, as well as SIMPLI output files are available on my
@@ -15,7 +15,7 @@ We used imaging mass cytometry (IMC) to identify the first neurons to be selecti
 We then performed pathway analysis on vulnerable neuronal populations, using an [RNAseq dataset]([url](https://doi.org/10.1101/2022.07.12.22277509)) generated internally from the same sample cohort. Clusters from IMC and RNAseq were first matched based on size and markers expression.
 
 
-### How to set up
+### 3. How to set up
 
 1. **Gather all input files**:
 
@@ -27,6 +27,7 @@ We then performed pathway analysis on vulnerable neuronal populations, using an 
    snRNAseq data (provided):
    - RNAseq_cluster_size.tsv (cell number in each cluster)
    - IMC_markers_expression_in_RNAseq.csv (scaled expression per cluster of markers used in IMC)
+   - .tsv files from enriched pathways analysis (not provided unitl paper is in revision)
    
    Metadata files (provided): 
    - clusters_labels.csv (IMC)
@@ -38,6 +39,7 @@ We then performed pathway analysis on vulnerable neuronal populations, using an 
 2. **Prepare the "R code" folder**:
    This should should include:
    - "input" -> all input files listed above
+   - "input/pathway_analysis" --> all .tsv files from enriched pathways analysis
    - "R scripts" -> all scripts available in this repository
    - "ImageJ_macro" -> containing the "ImageJ macro/Plaques mask and rings.ijm" script and the "mask_channels" folder (which should contain all amyloid-b ROIs - not provided)
    - "plots" -> [empty] output for plots
@@ -55,11 +57,11 @@ We then performed pathway analysis on vulnerable neuronal populations, using an 
 
 
 
-### Analysis
+### 4. Analysis
 
 Scripts 0 to 7 --> IMC data analysis
 
-Scripts 8 to 12 --> IMC-RNAseq clusters matching and pathway analysis
+Scripts 8 to 10 --> IMC-RNAseq clusters matching and plotting of enriched pathway analysis
 
 ///
 
@@ -176,11 +178,33 @@ Input data:
 
 SCRIPT: **9. Matching of IMC clusters to snRNASeq clusters.R**
 
-Type of analysis:Calculate final match of IMC clusters to snRNASeq clusters based on markers expression and clusters size
+Type of analysis: Calculate final match of IMC clusters to snRNASeq clusters based on markers expression and clusters size
 
 Input data: 
    - IMC_markers_expression_in_RNAseq.csv (snRNAseq data)
    - clustered_cells.csv (SIMPLI output files)
    - clusters_labels.csv (metadata)
    - clusters_quartile_matching_score.csv (generated in 8.calculate_clusters_size_quartiles)
+
+///
+
+SCRIPT: **10. plot_enriched_pathways.R**
+
+Type of analysis: Filter and plot pathways enriched in each cluster (regressed for variables, comparing clusters with each others)
+
+Input data: 
+   - .tsv files with enriched pathways (snRNAseq data)
+   - top_match_between_IMC_to_RNA_clusters_original.csv (generated in 9. RNAseq_IMC_clusters_matching.R)
+
+///
+
+SCRIPT: **11. plot_enriched_pathways_trajectory.R**
+
+Type of analysis: Filter and plot pathways enriched in each cluster and module of trajectory analysis 
+
+Input data: 
+   - .tsv files with enriched pathways (snRNAseq data)
+   - top_match_between_IMC_to_RNA_clusters_original.csv (generated in 9. RNAseq_IMC_clusters_matching.R)
+
+
 
