@@ -34,7 +34,7 @@ library(writexl)
 library(stringr)
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 # create output folder already done
 # dir.create("plots/clusters")
