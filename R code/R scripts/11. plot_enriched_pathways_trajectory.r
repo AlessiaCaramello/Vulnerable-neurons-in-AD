@@ -1,4 +1,4 @@
-# Filter and plot enriched pathways from trajectory analysis
+# Filter and plot pathways enriched in each cluster and module of trajectory analysis
 
 # input data
 # - .tsv files with enriched pathways
