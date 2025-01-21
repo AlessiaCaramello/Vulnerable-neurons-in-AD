@@ -10,7 +10,7 @@ library(dplyr)
 library('png')
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/R code")
 
 dir.create("tables/masks")
 
