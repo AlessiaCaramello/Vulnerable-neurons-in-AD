@@ -27,7 +27,7 @@ library(writexl)
 library(readxl)
 library(openxlsx)
 
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")     
+setwd("~/R code")
 
 dir.create("plots/pixel_area")
 dir.create("tables/pixel_area")
