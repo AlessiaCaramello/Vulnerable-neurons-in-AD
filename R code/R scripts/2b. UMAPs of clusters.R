@@ -14,7 +14,7 @@ library(qs)
 #source("scripts/Plot_Functions.R")
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code NatComm revision")
+setwd("~/R code")
 
 #define variables
 cell_file_name <- "input/clustered_cells.csv"                        # $clustered_cell_file \\                                                                                         
