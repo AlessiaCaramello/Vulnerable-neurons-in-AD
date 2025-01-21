@@ -25,7 +25,7 @@ library("scales")
 library(ggthemes)
 library(viridis)   
 
-setwd("~/Dropbox (UK Dementia Research Institute)/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 dir.create("tables/RNAseq")
 dir.create("tables/RNAseq/clusters_matching")
