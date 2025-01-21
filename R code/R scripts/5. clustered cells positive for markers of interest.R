@@ -38,7 +38,7 @@ library(readxl)
 library(openxlsx)
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 # create output folder
 #dir.create("plots/clusters/cells_positive_for_markers")
