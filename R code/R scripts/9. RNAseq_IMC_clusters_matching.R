@@ -35,7 +35,7 @@ library(gridExtra)
 library(ComplexHeatmap)
 library('circlize')
 
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 ##### 0b. pick method >>OPEN<< ####
 
