@@ -32,7 +32,7 @@ library(openxlsx)
 ##### 1. Set working directory and import files #####
 
 # set working directory
-setwd("~/UK Dementia Research Institute Dropbox/Alessia Caramello/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 # load input files
 clustered_cells <- read.csv("input/clustered_cells.csv")
