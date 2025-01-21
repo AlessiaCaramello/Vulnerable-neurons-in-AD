@@ -27,7 +27,7 @@ We then performed pathway analysis on vulnerable neuronal populations, using an 
    snRNAseq data (provided):
    - RNAseq_cluster_size.tsv (cell number in each cluster)
    - IMC_markers_expression_in_RNAseq.csv (scaled expression per cluster of markers used in IMC)
-   - .tsv files from enriched pathways analysis (not provided unitl paper is in revision)
+   - .tsv files from enriched pathways analysis (not provided until paper is in revision)
    
    Metadata files (provided): 
    - clusters_labels.csv (IMC)
