@@ -41,7 +41,7 @@ library(imcRtools)
 library(scales)
 
 # set working directory
-setwd("~/Dropbox (UK Dementia Research Institute)/Alessia Lab Dropbox/Projects/UKDRI project/Image analysis/HistoCat:SIMPLI analysis/051022 TREM2 cohort/R code")
+setwd("~/R code")
 
 # create output folder
 # dir.create("plots/SIMPLI_analyses/clusters/interactions")
