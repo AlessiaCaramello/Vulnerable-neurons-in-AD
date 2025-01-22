@@ -26,7 +26,6 @@ setwd("~/R code")
 
 # define which input folder to analyse
 subfolder <- "all_samples_comparing_clusters"
-subfolder <- "CTRL_vs_AD_revision"
 subfolder <- "CTRL_vs_AD"
 
 # define comparisons
